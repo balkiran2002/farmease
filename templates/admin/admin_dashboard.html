@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #007bff;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar .navbar-links {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .navbar .navbar-links a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            ;
+        }
+        .card h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #333;
+        }
+        .card p {
+            font-size: 22px;
+            color: #151414;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .dashboard-content {
+            margin-top: 20px;
+        }
+        .dashboard-content h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .stats-cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .stats-cards .card {
+            flex: 1;
+        }
+        .card.orange{
+            background-color: #bec924;
+        }
+        .card.red{
+            background-color: #f63c3c;
+        }
+        .card.blue{
+            background-color: #007bff;
+        }
+        .card.green{
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">
+            <a href="#">Admin</a>
+        </div>
+        <div class="navbar-links">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'admin:index' %}">Admin</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>FarmEase</h1>
+        <section class="dashboard-content">
+            <h1>Admin Dashboard</h1>
+            <div class="stats-cards">
+                <div class="card red">
+                    <h3>84,198</h3>
+                    <p>Revenue</p>
+                </div>
+                <div class="card orange">
+                    <h3>36,540</h3>
+                    <p>Sales</p>
+                </div>
+                <div class="card blue">
+                    <h3>24,225</h3>
+                    <p>Products</p>
+                </div>
+                <div class="card green">
+                    <h3>88,658</h3>
+                    <p>Visits</p>
+                </div>
+            </div>
+
+        <!-- Card for Total Items -->
+        <div class="card">
+            <h2>Total Items Received</h2>
+            <p>{{ total_items }}</p>
+            <a href="{% url 'admin:index' %}items/item/" class="btn">Manage Items</a>
+        </div>
+
+        <h2>Item List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Seasons</th>
+                    <th>Crops</th>
+                    <th>Soil Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.product_id }}</td>
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.seasons }}</td>
+                    <td>{{ item.crops }}</td>
+                    <td>{{ item.soil_type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
